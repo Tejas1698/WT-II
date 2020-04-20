@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pushpa Diwadkar</title>
+    <script>
+        let videoObject = {
+            XHR: new XMLHttpRequest(),
+            getVideo: function () {
+                this.XHR.onreadystatechange = () => {
+                    if (this.XHR.readyState === 4 && this.XHR.status === 200) {
+                        let video = document.createElement("video")
+                        video.src = URL.createObjectURL(this.XHR.response)
+                        video.autoplay = true
+                        video.controls = true
+                        document.body.appendChild(video)
+                    }
+                }
+                this.XHR.responseType = "blob"
+                this.XHR.open("GET", "video.php", true)
+                this.XHR.send()
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <button onclick="videoObject.getVideo()">
+        Get Video
+    </button>
+</body>
+
+</html>

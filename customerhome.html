@@ -1,0 +1,238 @@
+<html>
+    <head>
+        <title>CUSTOMER HOME PAGE</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+		 <link rel = "stylesheet"
+   type = "text/css"
+   href = "table.css" />
+   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    </head>
+	<style>
+	.button {
+  padding:5px;
+  background-color: #dcdcdc;
+  border: 1px solid #666;
+  color:#000;
+  text-decoration:none;
+}
+.button {
+  padding: 5px 5px 5px 25px;
+  border: 1px solid #666;
+  color:#000;
+  text-decoration:none;
+  background: #dcdcdc url(icon.png) no-repeat scroll 5px center;
+}
+
+
+html {
+    height: 100%;
+    /* max-height: 600px; */
+    width: 1000px;
+    background-color: hsla(200,40%,30%,.4);
+    background-image:       
+        url('https://78.media.tumblr.com/cae86e76225a25b17332dfc9cf8b1121/tumblr_p7n8kqHMuD1uy4lhuo1_540.png'), 
+        url('https://78.media.tumblr.com/66445d34fe560351d474af69ef3f2fb0/tumblr_p7n908E1Jb1uy4lhuo1_1280.png'),
+        url('https://78.media.tumblr.com/8cd0a12b7d9d5ba2c7d26f42c25de99f/tumblr_p7n8kqHMuD1uy4lhuo2_1280.png'),
+        url('https://78.media.tumblr.com/5ecb41b654f4e8878f59445b948ede50/tumblr_p7n8on19cV1uy4lhuo1_1280.png'),
+        url('https://78.media.tumblr.com/28bd9a2522fbf8981d680317ccbf4282/tumblr_p7n8kqHMuD1uy4lhuo3_1280.png');
+    background-repeat: repeat-x;
+    background-position: 
+        0 20%,
+        0 100%,
+        0 50%,
+        0 100%,
+        0 0;
+    background-size: 
+        2500px,
+        800px,
+        500px 200px,
+        1000px,
+        400px 260px;
+    animation: 50s para infinite linear;
+    }
+
+@keyframes para {
+    100% {
+        background-position: 
+            -5000px 20%,
+            -800px 95%,
+            500px 50%,
+            1000px 100%,
+            400px 0;
+        }
+    }
+
+
+
+
+	</style>
+	    <body>
+		
+       
+		<button onclick="obj.send()">Browse Products</button>
+		
+		<table border="2" id="2" class="features-table">
+		<tr>
+		<b><th>product code</th></b>
+		<th>product name</th>
+		<th>price</th>
+		
+		</tr>
+		
+		<tr>
+		<td id="demo"></td>
+		<td id="demo1"></td>
+		<td id="demo2"></td>
+		
+		
+		</tr>
+        <br/>
+        <br/>
+       
+        <br/>
+        <br/>
+       
+    </body>
+	<script>
+	
+	/*function dummy()
+	{
+		console.log("In dummy functon...");
+		xhr.abort();
+		return;
+	}*/
+	
+	a:
+	
+	function sleep()
+	{
+		xhr=new XMLHttpRequest();
+		xhr.open("get","sleep.php",true);
+		//xhr.onreadystatechange=dummy;
+		//xhr.send();
+		console.log("In Sleep");
+		//var a=xhr.readyState;
+	
+		
+	}
+	
+	
+	
+	
+var ev;
+		obj ={
+			send:function()
+			{
+				
+				ev = new EventSource("browse.php");
+				ev.addEventListener("update",this.show);
+				console.log(ev.data);
+				ev.onerror=function(){
+					console.log("error occured");
+					ev.close();
+				}
+
+			},
+			show:function(event)
+			{
+				div = document.createElement("td");
+				div.innerHTML= event.data.split(",")[0];
+				div1 = document.createElement("td");
+				div1.innerHTML= event.data.split(",")[1];
+				div2 = document.createElement("td");
+				div2.innerHTML= event.data.split(",")[2];
+			     var tab=document.getElementById("2");
+				 var tr=document.createElement("tr");
+				console.log(event.data);
+
+				tr.appendChild(div);
+				tr.appendChild(div1);
+			    tr.appendChild(div2);
+				tab.appendChild(tr);
+
+				console.log("In the show function");
+				/*if (event.data.substring("end") != -1) {
+					console.log("got end")
+					ev.close();
+				}*/
+
+
+			}
+		}
+		
+	
+
+		
+	 
+	 
+/*	function send()
+{
+
+    function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
+	
+*/
+		
+/*		if(typeof(EventSource) !== "undefined") {
+    var source = new EventSource("browse.php");
+   source.onmessage = function(event) {
+    var str =event.data;
+	var res = str.split("\n");
+    var i;
+	for(i=0;i<30;i=i+3)
+	{
+		if(res[0]=="end")
+		{
+			source.close();
+			return;
+		}
+		document.getElementById("demo").innerHTML +=res[i]+ "<br>";
+	
+		document.getElementById("demo1").innerHTML += res[i+1] + "<br>";
+		
+		document.getElementById("demo2").innerHTML += res[i+2]+ "<br>";
+		console.log(i);
+		if(i>0)
+		{
+			sleep();
+		}
+
+	}
+	//console.log(event.data);
+	
+	
+	//console.log(res);
+	
+    //var str = event.data.substring(0, event.data.length - 1);
+     
+    
+	
+	 
+	 
+    
+  };
+} else {
+  document.getElementById("result").innerHTML = "Sorry, your browser does not support server-sent events...";
+}
+
+}*/
+				
+
+
+
+
+				
+				
+	  
+	    
+	</script>
+
+</html>
+
+
